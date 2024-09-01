@@ -3,8 +3,8 @@ import random
 from os.path import join
 
 class Player(pygame.sprite.Sprite):
-    def __init__(self):
-        super().__init__()
+    def __init__(self, groups):
+        super().__init__(groups)
         self.image = pygame.image.load(join('images', 'player.png')).convert_alpha()
         self.rect = self.image.get_frect(center = (WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2))
 # General setup
@@ -20,8 +20,8 @@ clock = pygame.time.Clock()
 # basic surface
 # surf = pygame.Surface((100,200))
 # surf.fill('orange')
-
-player = Player()
+all_sprites = pygame.sprite.Group()
+player = Player(all_sprites)
 
 # Imports 
 # Importing an image (by default means we are importing a surface)
@@ -81,7 +81,7 @@ while running:
     display_surface.blit(meteor_surf, meteor_rect)
     display_surface.blit(laser_surf, laser_rect)
     #display_surface.blit(player_surf, player_rect) # Attaching the surface, surf, to the display_surface
-    display_surface.blit(player.image, player.rect) 
+    all_sprites.draw(display_surface)
     pygame.display.update()
     
 pygame.quit()
